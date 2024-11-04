@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #faf3f3;
+            color: #5d5c61;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            padding: 30px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+        h1 {
+            color: #b83b5e;
+        }
+        .question {
+            font-size: 1.2em;
+            margin: 20px 0;
+        }
+        .button-group {
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #b83b5e;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #6a2c3b;
+        }
+        .copyright {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #b83b5e;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="quizContainer">
+    <h1>For Someone Special</h1>
+    <p class="question" id="questionText"></p>
+    <div class="button-group">
+        <button class="btn" onclick="answer('yes')">Yes</button>
+        <button class="btn" onclick="answer('no')">No</button>
+    </div>
+    <div class="copyright">®By kapre</div>
+</div>
+
+<script>
+    // Updated questions array with positive phrasing
+    const questions = [
+        "Did he stay loyal to you?",
+        "Did he support you when you were feeling down?",
+        "Was he honest with you in your relationship?",
+        "Did he show he cared in small, thoughtful ways?",
+        "Was he willing to admit when he made mistakes?",
+        "Did he respect your feelings and boundaries?",
+        "Would he make time for you even when he was busy?",
+        "Did he encourage you to be your best self?",
+        "Did he communicate openly with you?",
+        "Did he always try to understand your point of view?"
+    ];
+    
+    // Variables for tracking question number and answers
+    let currentQuestion = 0;
+    let yesCount = 0;
+    let noCount = 0;
+    
+    // Display initial question
+    document.getElementById("questionText").textContent = questions[currentQuestion];
+    
+    // Function to handle answer and navigate questions
+    function answer(response) {
+        // Update counters based on answer
+        if (response === "yes") yesCount++;
+        else if (response === "no") noCount++;
+        
+        // Move to the next question
+        currentQuestion++;
+        
+        // Check if there are more questions
+        if (currentQuestion < questions.length) {
+            document.getElementById("questionText").textContent = questions[currentQuestion];
+        } else {
+            // Determine the final message based on Yes/No counts
+            let finalMessage = "";
+            if (yesCount > noCount) {
+                finalMessage = "It looks like you had many positive moments together. This could be a sign that a second chance might be worth considering.";
+            } else {
+                finalMessage = "There may have been more challenges than positive moments. Reflect on these experiences and think about what you truly want moving forward.";
+            }
+            // Display final result
+            document.getElementById("quizContainer").innerHTML = `
+                <h1>Reflection</h1>
+                <p>You answered "Yes" ${yesCount} times and "No" ${noCount} times.</p>
+                <p>${finalMessage}</p>
+                <p>Thank you.</p>
+                <p>"Trust your guts"</p>
+                <div class="copyright">®By kapre</div>
+            `;
+        }
+    }
+</script>
+
+</body>
+</html>
