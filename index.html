@@ -48,27 +48,27 @@
         .btn:hover {
             background-color: #6a2c3b;
         }
-        .copyright {
-            margin-top: 20px;
-            font-size: 0.9em;
-            color: #b83b5e;
-        }
     </style>
 </head>
 <body>
 
-<div class="container" id="quizContainer">
+<div class="container" id="introContainer">
     <h1>For Someone Special</h1>
+    <p>This interactive journey is for you, my little creature.🌹</p>
+    <div class="button-group">
+        <button class="btn" onclick="startQuiz()">Continue</button>
+    </div>
+</div>
+
+<div class="container" id="quizContainer" style="display: none;">
     <p class="question" id="questionText"></p>
     <div class="button-group">
         <button class="btn" onclick="answer('yes')">Yes</button>
         <button class="btn" onclick="answer('no')">No</button>
     </div>
-    <div class="copyright">®By kapre</div>
 </div>
 
 <script>
-    // Updated questions array with positive phrasing
     const questions = [
         "Did he stay loyal to you?",
         "Did he support you when you were feeling down?",
@@ -82,42 +82,39 @@
         "Did he always try to understand your point of view?"
     ];
     
-    // Variables for tracking question number and answers
     let currentQuestion = 0;
     let yesCount = 0;
     let noCount = 0;
-    
-    // Display initial question
-    document.getElementById("questionText").textContent = questions[currentQuestion];
-    
-    // Function to handle answer and navigate questions
+
+    // Function to start the quiz
+    function startQuiz() {
+        document.getElementById("introContainer").style.display = "none";
+        document.getElementById("quizContainer").style.display = "block";
+        document.getElementById("questionText").textContent = questions[currentQuestion];
+    }
+
     function answer(response) {
-        // Update counters based on answer
         if (response === "yes") yesCount++;
         else if (response === "no") noCount++;
         
-        // Move to the next question
         currentQuestion++;
         
-        // Check if there are more questions
         if (currentQuestion < questions.length) {
             document.getElementById("questionText").textContent = questions[currentQuestion];
         } else {
-            // Determine the final message based on Yes/No counts
             let finalMessage = "";
             if (yesCount > noCount) {
                 finalMessage = "It looks like you had many positive moments together. This could be a sign that a second chance might be worth considering.";
             } else {
                 finalMessage = "There may have been more challenges than positive moments. Reflect on these experiences and think about what you truly want moving forward.";
             }
-            // Display final result
             document.getElementById("quizContainer").innerHTML = `
                 <h1>Reflection</h1>
                 <p>You answered "Yes" ${yesCount} times and "No" ${noCount} times.</p>
                 <p>${finalMessage}</p>
                 <p>Thank you.</p>
-                <p>"Trust your guts"</p>
-                <div class="copyright">®By kapre</div>
+                <p>"Trust your guts😉"</p>
+                <p>®By kapre</p>
             `;
         }
     }
